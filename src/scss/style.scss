@@ -1,0 +1,135 @@
+$color_one: #feac5e;
+$color_two:#c779d0;
+$color_three: #4BC0C8;
+
+@mixin distribute-on-circle($nb-items,
+    $circle-size,
+    $item-size,
+    $class-for-IE: false) {
+    $half-item: ($item-size / 2);
+    $half-parent: ($circle-size / 2);
+
+    position: relative;
+    /* 1 */
+    width: $circle-size;
+    height: $circle-size;
+    padding: 0;
+    border-radius: 50%;
+    list-style: none;
+    /* 2 */
+    box-sizing: content-box;
+    /* 3 */
+
+    >* {
+        /* 4 */
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: $item-size;
+        height: $item-size;
+        margin: -$half-item;
+    }
+
+    $angle: (
+        360 / $nb-items
+    );
+$rot: 80;
+
+@for $i from 1 through $nb-items {
+    @if not $class-for-IE {
+        > :nth-of-type(#{$i}) {
+            transform: rotate($rot * 1deg) translate($half-parent) rotate($rot * -1deg);
+        }
+    }
+
+    @else {
+        >.#{$class-for-IE}#{$i} {
+            // If CSS transforms are not supported
+            $mt: sin($rot * pi() / 180) * $half-parent - $half-item;
+            $ml: cos($rot * pi() / 180) * $half-parent - $half-item;
+            margin: $mt 0 0 $ml;
+        }
+    }
+
+    $rot: (
+        $rot + $angle
+    );
+}
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(0.90turn, $color_one, $color_two, $color_three) no-repeat fixed;
+    color: white;
+    font-family: "Open Sans";
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row;
+    width: 80%;
+    text-align: center;
+    &__label {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+}
+
+
+.game {
+    @include distribute-on-circle(3, 25em, 10em, false);
+        margin: 5em auto 0;
+        border: 1px solid white;
+
+    .circle {
+        display: block;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 40%;
+            padding-top: 0.3rem;
+        }
+        transition: all 0.5s linear;
+        &:hover:not(.verdict) {
+            margin: -4.5em;
+            height: 9em;
+            width: 9em;
+        }
+    }
+}
+
+.paper {
+    color: $color_two;
+}
+
+.rock {
+    color: $color_three;
+}
+
+.scissors {
+    color: $color_one;
+}
+
+.verdict {
+    overflow: hidden;
+    color: black;
+    font-size: .8rem;
+    text-align: center;
+}
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper & Scissors</title>
+    <link rel="stylesheet" href="src/scss/style.scss">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <div class="score">
+            <div class="score__user">
+                <section>Your Score</section>
+                <div class="user"></div>
+            </div>
+            
+            <div class="score__label">Let's Play</div>
+
+            <div class="score__computer">
+                <section>Computer Score</section>
+                <div class="computer"></div>
+            </div>
+        </div>
+        <div class="game">
+            <div class="circle paper">Paper<img src="img/icons8-file-100.png" alt="Paper"></div>
+            <div class="circle rock">Rock<img src="img/icons8-rock-100.png" alt="Rock"></div>
+            <div class="circle scissors">Scissors<img src="img/icons8-scissors-100.png" alt="Scissors"></div>
+            <div class="circle verdict"></div>
+        </div>
+    </main>
+    <script src="src/js/script.js"></script>
+</body>
+</html>
